@@ -44,6 +44,11 @@ public class LonelyTwitterActivity extends Activity {
 				NormalTweet newTweet = new NormalTweet("Hello");
 				ImportantTweet newTweet2 = new ImportantTweet("hello", new Date());
 
+				//Added
+				sad newSad = new sad("sad");
+				happy newHappy = new happy("happy");
+
+
 				newTweet2.getDate();
 
 				try {
@@ -54,9 +59,15 @@ public class LonelyTwitterActivity extends Activity {
 				Log.d("TWEET", newTweet.getMessage());
 
 
+
 				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
 				tweetList.add(newTweet);
 				tweetList.add(newTweet2);
+
+				//Added
+				ArrayList<currentMood> moody = new ArrayList<currentMood>();
+				moody.add(newSad);
+				moody.add(newHappy);
 
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				//finish();
