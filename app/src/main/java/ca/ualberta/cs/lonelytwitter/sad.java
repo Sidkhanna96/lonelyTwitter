@@ -7,10 +7,25 @@ import java.util.Date;
  */
 
 public class sad extends currentMood{
+    /**
+     * constructor
+     * @param mood
+     */
     public sad(String mood){super(mood);}
+
+    /**
+     * constructor with parameters
+     * @param mood
+     * @param date
+     */
     public sad(String mood, Date date){
         super(mood,date);
     }
+
+    /**
+     * type mood
+     * @return
+     */
     public String typeMood(){
         return "sad";
     }

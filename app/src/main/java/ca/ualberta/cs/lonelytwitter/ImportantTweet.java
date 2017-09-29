@@ -8,15 +8,26 @@ import java.util.Date;
 
 public class ImportantTweet extends Tweet implements Tweetable {
 
+    /**
+     * constructor
+     * @param message
+     */
     public ImportantTweet(String message){
         super(message);
     }
 
+    /**
+     * constructor with parameters
+     */
     public ImportantTweet(String message, Date date) {
         super(message, date);
     }
 
-
+    /**
+     * check if tweet is important
+     *
+     * @return
+     */
     @Override
     public Boolean isImportant(){
         return Boolean.TRUE;

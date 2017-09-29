@@ -21,8 +21,17 @@ import android.widget.ListView;
 
 public class LonelyTwitterActivity extends Activity {
 
+	/**
+	 * variables FileName: values are stored in file.sav
+	 */
 	private static final String FILENAME = "file.sav";
+	/**
+	 * used to acces the tweet the user makes
+	 */
 	private EditText bodyText;
+	/**
+	 * The original tweet list
+	 */
 	private ListView oldTweetsList;
 	
 	/** Called when the activity is first created. */
@@ -32,23 +41,38 @@ public class LonelyTwitterActivity extends Activity {
 		setContentView(R.layout.main);
 
 		bodyText = (EditText) findViewById(R.id.body);
+		/**
+		 * creates the save button
+		 */
 		Button saveButton = (Button) findViewById(R.id.save);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
+		/**
+		 * Action to perform after the user presses the save button to save
+		 * the tweet made by the user
+		 */
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				setResult(RESULT_OK);
+
+				/**
+				 * convert the input made by the user to strnig
+				 */
 				String text = bodyText.getText().toString();
 
+				/**
+				 * user makes a normal tweet
+				 */
 				NormalTweet newTweet = new NormalTweet("Hello");
+				/**
+				 * user makes an important tweet
+				 */
 				ImportantTweet newTweet2 = new ImportantTweet("hello", new Date());
 
-				//Added
-				sad newSad = new sad("sad");
-				happy newHappy = new happy("happy");
-
-
+				/**
+				 * get date when tweet made
+				 */
 				newTweet2.getDate();
 
 				try {
@@ -59,16 +83,15 @@ public class LonelyTwitterActivity extends Activity {
 				Log.d("TWEET", newTweet.getMessage());
 
 
-
+				/**
+				 * addinf the tweet to the list of tweets made
+				 */
 				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
 				tweetList.add(newTweet);
 				tweetList.add(newTweet2);
-
-				//Added
-				ArrayList<currentMood> moody = new ArrayList<currentMood>();
-				moody.add(newSad);
-				moody.add(newHappy);
-
+				/**
+				 * save tweets in a file
+				 */
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				//finish();
 
@@ -76,16 +99,30 @@ public class LonelyTwitterActivity extends Activity {
 		});
 	}
 
+	/**
+	 * do this on start of the app
+	 */
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+		/**
+		 * loading tweet from file
+		 */
 		String[] tweets = loadFromFile();
+		/**
+		 * bridge between UI and the data of tweet
+		 */
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
 	}
 
+
+	/**
+	 * load values from file
+	 * @return tweets
+	 */
 	private String[] loadFromFile() {
 		ArrayList<String> tweets = new ArrayList<String>();
 		try {
@@ -106,7 +143,12 @@ public class LonelyTwitterActivity extends Activity {
 		}
 		return tweets.toArray(new String[tweets.size()]);
 	}
-	
+
+	/**
+	 * save value from file
+	 * @param text
+	 * @param date
+	 */
 	private void saveInFile(String text, Date date) {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
